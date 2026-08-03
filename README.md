@@ -1,17 +1,17 @@
 ---
-title: "Information Provisions of the Geneva Conventions — Learning Aid"
-document_ref: HCXAI-LA-001
-version: 1.0
-status: Released
-owner: HCXAIResearch
-audience: AI governance practitioners, compliance leads, training facilitators
-standards_touched:
+Title: "Information Provisions of the Geneva Conventions — Learning Aid"
+Document Reference: HCXAI-LA-001
+Version: 1.0
+Status: Released
+Owner: HCXAIResearch
+Audience: AI governance practitioners, compliance leads, training facilitators
+Standards Reference:
   - Geneva Conventions of 12 August 1949 (GC I–IV)
   - ISO/IEC 42001:2023
   - ISO/IEC 42005:2025
   - NIST AI RMF 1.0
   - OECD AI Principles
-license: See LICENSE
+License: See LICENSE
 ---
 
 # Information Provisions of the Geneva Conventions
@@ -57,7 +57,7 @@ Every principle section follows the same three-beat structure: **article extract
 
 ## Running it
 
-Open `geneva-data-provisions-lesson.html` in any modern browser. That is the whole installation procedure.
+Open `index.html` in any modern browser. That is the whole installation procedure.
 
 To host it, drop the file anywhere that serves static content — SharePoint document library, internal wiki, S3 bucket, GitHub Pages. It has no server dependency and no same-origin requirement.
 
@@ -69,7 +69,7 @@ The only external requests are Google Fonts. If your environment blocks them, th
 
 | File | Purpose |
 | --- | --- |
-| `geneva-data-provisions-lesson.html` | The module. Self-contained: markup, CSS, content and logic in one file |
+| `index.html` | The module. Self-contained: markup, CSS, content and logic in one file |
 | `README.md` | This document |
 | `USER_MANUAL.md` | Facilitator guide, session plans, verified answer key, customisation instructions |
 
@@ -142,4 +142,4 @@ Read these before putting the module in front of an external audience.
 
 ---
 
-*HCXAIResearch · Human-at-centre AI governance · `HCXAI-LA-001` v1.0*
+*HCXAIResearch · Human Centered Explainable AI (Governance) · `HCXAI-LA-001` v1.0*
