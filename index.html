@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Information Provisions of the Geneva Conventions — a lesson for AI governance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#0E7C7B;          /* primary accent on light — HCXAI deep teal */
+  --onDark:#2FB6B2;       /* accent on navy — HCXAI bright teal */
+  --navy:#1B2A4A;
+  --alert:#B4232A;        /* semantic error only, not brand */
+  --ink:#1B2A4A;
+  --slate:#5A6779;
+  --paper:#FFFFFF;
+  --leaf:#F3F6F8;
+  --rule:#D4DCE4;
+  --green:#0E7C7B;
+  --display:"Zilla Slab",Georgia,serif;
+  --body:"Source Serif 4",Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --maxw:940px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--leaf);color:var(--ink);
+  font-family:var(--body);font-size:17px;line-height:1.62;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+
+/* ---------- masthead ---------- */
+.masthead{background:var(--navy);color:#fff;padding:30px 0 26px;border-bottom:5px solid var(--onDark)}
+.masthead .wrap{display:flex;gap:20px;align-items:flex-start}
+.emblem{flex:0 0 auto;width:50px;height:50px;margin-top:4px}
+.emblem svg{display:block;width:100%;height:100%}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.19em;text-transform:uppercase;opacity:.9;margin:0 0 8px}
+.masthead h1{font-family:var(--display);font-weight:700;font-size:clamp(25px,4.4vw,40px);line-height:1.1;margin:0 0 8px;letter-spacing:-.01em}
+.masthead p{margin:0;font-size:15px;max-width:56ch;opacity:.94}
+
+/* ---------- progress ---------- */
+.tally{background:var(--ink);color:#fff}
+.tally .wrap{display:flex;flex-wrap:wrap;gap:8px 26px;align-items:center;padding-top:10px;padding-bottom:10px;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase}
+.tally b{color:var(--onDark);font-weight:600}
+.bar{flex:1 1 130px;height:4px;background:#33415C;min-width:110px}
+.bar span{display:block;height:100%;width:0;background:var(--onDark);transition:width .35s ease}
+
+/* ---------- tabs ---------- */
+.tabstrip{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:2px solid var(--ink)}
+.tabs{display:flex;overflow-x:auto;scrollbar-width:thin;max-width:var(--maxw);margin:0 auto;padding:0 12px}
+.tab{
+  flex:0 0 auto;appearance:none;background:none;border:0;border-bottom:3px solid transparent;
+  padding:14px 14px 11px;cursor:pointer;color:var(--slate);
+  font-family:var(--mono);font-size:12px;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap;
+}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--red);font-weight:600}
+.tab .num{color:var(--red);margin-right:7px}
+.tab .done{color:var(--green);margin-left:7px;font-weight:600}
+.tab:focus-visible,.opt:focus-visible,.btn:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+
+/* ---------- panels ---------- */
+.panel{display:none;padding:36px 0 70px;animation:rise .3s ease}
+.panel.on{display:block}
+@keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.kicker{font-family:var(--mono);font-size:11px;letter-spacing:.19em;text-transform:uppercase;color:var(--red);margin:0 0 10px}
+.panel h2{font-family:var(--display);font-weight:700;font-size:clamp(23px,3.6vw,32px);line-height:1.15;margin:0 0 12px;letter-spacing:-.01em}
+.standfirst{font-size:18.5px;line-height:1.6;margin:0 0 30px;max-width:62ch;color:#2b2724}
+.panel h3{font-family:var(--display);font-weight:600;font-size:19px;margin:38px 0 14px;letter-spacing:.005em}
+.panel p{max-width:66ch}
+
+/* ---------- provision card (signature: booklet marginal note) ---------- */
+.prov{display:grid;grid-template-columns:150px 1fr;gap:0;background:var(--paper);
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin:0 0 -1px}
+.prov__margin{padding:20px 18px 20px 0;text-align:right;border-right:1px solid var(--rule)}
+.prov__cite{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--red);display:block;letter-spacing:.02em}
+.prov__note{display:block;margin-top:6px;font-size:12.5px;font-style:italic;color:var(--slate);line-height:1.4}
+.prov__body{padding:20px 22px;border-left:3px solid var(--red)}
+.prov__text{margin:0;font-size:16.5px}
+.prov__text em{background:#e6f4f4;font-style:normal;box-shadow:inset 0 -.5em 0 #d3ecec;padding:0 1px}
+
+.translate{background:var(--navy);color:#e8eef4;padding:20px 22px;margin:26px 0 0;border-left:3px solid var(--onDark)}
+.translate h4{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--onDark);margin:0 0 9px}
+.translate p{margin:0 0 10px;font-size:16px;max-width:64ch}
+.translate p:last-child{margin-bottom:0}
+.translate strong{color:#fff}
+
+.note{border:1px solid var(--rule);background:var(--paper);padding:18px 20px;margin:26px 0 0}
+.note h4{font-family:var(--display);font-size:16px;margin:0 0 8px}
+.note p{margin:0;font-size:16px}
+
+ul.plain{padding-left:20px;max-width:64ch}
+ul.plain li{margin-bottom:9px}
+
+/* ---------- quiz ---------- */
+.quiz{margin-top:46px;border-top:3px solid var(--ink);padding-top:26px}
+.quiz__head{font-family:var(--mono);font-size:11px;letter-spacing:.19em;text-transform:uppercase;color:var(--ink);margin:0 0 22px}
+.quiz__head b{color:var(--red);font-weight:600}
+.q{background:var(--paper);border:1px solid var(--rule);padding:20px 22px;margin-bottom:16px}
+.q__stem{font-family:var(--display);font-weight:600;font-size:17.5px;line-height:1.45;margin:0 0 16px}
+.q__stem .qn{font-family:var(--mono);font-size:12px;color:var(--red);margin-right:8px;font-weight:600}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{
+  text-align:left;font-family:var(--body);font-size:16px;line-height:1.45;
+  background:var(--leaf);border:1px solid var(--rule);padding:11px 14px;cursor:pointer;color:var(--ink);
+  transition:background .15s ease,border-color .15s ease;
+}
+.opt:hover:not(:disabled){background:#fff;border-color:var(--ink)}
+.opt:disabled{cursor:default}
+.opt .mark{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--red);margin-right:9px}
+.opt.right{background:#e9f5f5;border-color:var(--green);border-left-width:4px}
+.opt.right .mark{color:var(--green)}
+.opt.wrong{background:#fbf0f0;border-color:var(--alert);border-left-width:4px;text-decoration:line-through;text-decoration-color:var(--alert)}
+.opt.muted{opacity:.5}
+.why{margin:14px 0 0;padding:13px 16px;background:var(--leaf);border-left:3px solid var(--ink);font-size:15.5px;display:none}
+.why.show{display:block}
+.why b{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:5px}
+.why.ok b{color:var(--green)}
+.why.no b{color:var(--alert)}
+
+/* ---------- scorecard ---------- */
+.score{background:var(--paper);border:2px solid var(--ink);padding:26px}
+.score__big{font-family:var(--display);font-weight:700;font-size:56px;line-height:1;color:var(--red);margin:0}
+.score__lbl{font-family:var(--mono);font-size:11px;letter-spacing:.19em;text-transform:uppercase;color:var(--slate);margin:6px 0 22px}
+table{width:100%;border-collapse:collapse;font-size:15.5px}
+th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--rule)}
+th{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);font-weight:500}
+td.n{font-family:var(--mono);white-space:nowrap}
+.btn{margin-top:20px;font-family:var(--mono);font-size:12px;letter-spacing:.13em;text-transform:uppercase;
+  background:var(--ink);color:#fff;border:0;padding:12px 20px;cursor:pointer}
+.btn:hover{background:var(--red)}
+
+footer{border-top:1px solid var(--rule);padding:22px 0 50px;font-size:13.5px;color:var(--slate)}
+footer p{max-width:70ch;margin:0 0 8px}
+
+@media (max-width:760px){
+  body{font-size:16px}
+  .prov{grid-template-columns:1fr}
+  .prov__margin{text-align:left;border-right:0;border-bottom:1px solid var(--rule);padding:16px 0 12px}
+  .prov__body{padding:16px 0 20px 16px}
+  .masthead .wrap{gap:14px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="emblem" aria-hidden="true">
+        <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17 4H4v42h13" stroke="#2FB6B2" stroke-width="4" stroke-linecap="square"/>
+          <path d="M33 4h13v42H33" stroke="#2FB6B2" stroke-width="4" stroke-linecap="square"/>
+          <circle cx="25" cy="19" r="5" fill="#FFFFFF"/>
+          <path d="M15.5 38c0-5.5 4.3-9.6 9.5-9.6s9.5 4.1 9.5 9.6" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+      </div>
+    <div>
+      <p class="eyebrow">HCXAIResearch · Teaching module · Geneva Conventions of 12 August 1949</p>
+      <h1>The information provisions</h1>
+      <p>Seven data-governance principles drawn from the text of the four Conventions, and what each one asks of an organisation deploying AI in or around armed conflict.</p>
+    </div>
+  </div>
+</header>
+
+<div class="tally">
+  <div class="wrap">
+    <span>Answered <b id="tAns">0</b> / 26</span>
+    <span>Correct <b id="tCor">0</b></span>
+    <span class="bar"><span id="tBar"></span></span>
+  </div>
+</div>
+
+<nav class="tabstrip">
+  <div class="tabs" role="tablist" aria-label="Lesson sections" id="tabs"></div>
+</nav>
+
+<main class="wrap" id="panels"></main>
+
+<footer class="wrap">
+  <p><strong>Source.</strong> Text and article numbering follow the four Geneva Conventions of 12 August 1949 (ICRC). Article extracts are abridged for teaching; consult the full text before relying on any provision.</p>
+  <p><strong>Scope limit.</strong> This module covers the 1949 Conventions only. Additional Protocol I — in particular Article 36 on the review of new weapons and methods of warfare, and Article 57 on precautions in attack — carries the review and human-judgment obligations most often invoked for autonomous systems, and is not addressed here.</p>
+</footer>
+
+<script>
+/* ============================================================
+   Lesson content
+   ============================================================ */
+const LESSON = [
+{
+  id:"orient", tabLabel:"Orientation",
+  kicker:"How to use this module",
+  title:"Two things to hold on to before you start",
+  standfirst:"The 1949 Conventions were drafted for index cards, sealed packets and the postal service. They still contain the most tested body of rules on handling data about people who cannot protect themselves — which is exactly the problem an AI deployer faces in conflict.",
+  blocks:[
+    {type:"html", html:`<h3>Insight one — identification is a protective act</h3>
+      <p>Every information duty in these Conventions exists to reunite, notify, treat or account for a person. None of them exists to find a target. When you carry these provisions into an AI system, the distinction has to survive the journey: a capability that identifies people for protection is authorised by this text; the same capability pointed at targeting is not.</p>
+      <h3>Insight two — the prohibitions are absolute, the obligations are best-efforts</h3>
+      <p>Read the qualifiers. <em>No</em> coercion has no exception clause. But "as soon as possible", "in so far as available" and "if possible every week" all bend. Operational pressure may compress an obligation. It never touches a prohibition. That asymmetry gives you a clean hard-constraint / soft-constraint split for system design.</p>`},
+    {type:"note", h:"How the module runs", p:"Seven principle sections, each with the governing article extracts, a translation into AI-deployment terms, and three questions. A mixed assessment closes the module. Answers are checked as you go and you cannot change one once submitted — pick deliberately."}
+  ],
+  quiz:[
+    {stem:"What is the shared purpose of the information duties across the four Conventions?",
+     opts:["Establishing the lawful status of combatants for prosecution","Identifying, notifying, treating and accounting for people under a party's control","Verifying compliance with the laws of targeting","Recording the material losses of each party"],
+     a:1, why:"Every information duty runs toward a protective end — reuniting families, notifying next of kin, enabling medical care, accounting for the dead. Nothing in these provisions authorises collection for targeting."},
+    {stem:"Which of these obligations is drafted in absolute terms, with no qualifying language?",
+     opts:["Supplying health information on the seriously ill every week","Recording particulars of the dead as soon as possible","The prohibition on coercion to obtain information","Transmitting information by the most rapid means"],
+     a:2, why:"The health, records and transmission duties are all softened — 'if possible', 'as soon as possible', 'the most rapid means available'. The coercion prohibition carries no qualifier at all."}
+  ]
+},
+{
+  id:"minim", tabLabel:"Minimisation",
+  kicker:"Principle 01",
+  title:"Data minimisation and purpose limitation",
+  standfirst:"The Conventions do not ask what a party is able to find out. They state, field by field, what may be required and what must be held — and they tie that list to a stated purpose.",
+  blocks:[
+    {type:"prov", cite:"GC III, Art. 17 ¶1", note:"Questioning of prisoners",
+     text:"Every prisoner of war, when questioned on the subject, is bound to give <em>only</em> his surname, first names and rank, date of birth, and army, regimental, personal or serial number, or failing this, equivalent information."},
+    {type:"prov", cite:"GC III, Art. 122 ¶4", note:"Information for the Bureau",
+     text:"This information shall make it possible <em>quickly to advise the next of kin concerned</em> … surname, first names, rank, serial number, place and full date of birth, the Power on which he depends, first name of the father and maiden name of the mother, name and address of the person to be informed."},
+    {type:"prov", cite:"GC IV, Art. 138", note:"Particulars required",
+     text:"The information … shall be of such a character as to make it possible <em>to identify the protected person exactly and to advise his next of kin quickly</em>. The information in respect of each person shall include <em>at least</em> his surname, first names, place and date of birth, nationality, last residence and distinguishing characteristics …"},
+    {type:"translate", h:"For the AI deployer", ps:[
+      "The schema is fixed <strong>before</strong> the system is built, and it is justified by the protective purpose it serves. Technical ability to ingest a signal is not authority to ingest it.",
+      "Note the two-sided drafting in Art. 138: a floor ('at least') for the protective purpose, and in Art. 17 a ceiling ('only') on what may be compelled from the individual. A minimisation control needs both — a mandatory core and an enumerated boundary — not just a deletion schedule.",
+      "Test to apply: for every field your model or pipeline consumes about an identifiable person, name the protective purpose it serves. Fields that fail the test are out of scope, however useful."
+    ]}
+  ],
+  quiz:[
+    {stem:"Under GC III Art. 17, what is a prisoner of war bound to provide when questioned?",
+     opts:["Any information within their personal knowledge","Name, rank, date of birth and serial number, and nothing more","Whatever is recorded on their identity card","Name and unit, plus operational location"],
+     a:1, why:"Art. 17 ¶1 uses the word 'only'. The list is closed: surname, first names, rank, date of birth, and serial number or equivalent."},
+    {stem:"GC IV Art. 138 specifies the character the information must have. What is it?",
+     opts:["Sufficient to establish the person's legal status","Sufficient to identify the person exactly and advise next of kin quickly","Sufficient to satisfy any enquiry from any source","Sufficient to support later criminal proceedings"],
+     a:1, why:"The article defines the data by its function — exact identification and rapid notification of next of kin. Purpose limitation stated on the face of the provision."},
+    {stem:"An AI deployer proposes ingesting every available signal about detainees on the grounds that more data improves identification accuracy. Which principle does this most directly breach?",
+     opts:["The duty of timely notification","Purpose limitation, since collection is bounded by the protective purpose, not by accuracy gains","The requirement to authenticate records","The prohibition on reprisals"],
+     a:1, why:"Accuracy is a means, not a licence. Both Art. 17 and Art. 138 bound the data set by purpose; a marginal accuracy gain does not enlarge the authorised schema."}
+  ]
+},
+{
+  id:"coerce", tabLabel:"Coercion",
+  kicker:"Principle 02",
+  title:"The prohibition on coercive extraction",
+  standfirst:"This is the hardest rule in the module. It is drafted without exception, it covers information 'of any kind whatever', and in the Fourth Convention it reaches information about people who are not in front of you.",
+  blocks:[
+    {type:"prov", cite:"GC III, Art. 17 ¶4", note:"Questioning of prisoners",
+     text:"<em>No physical or mental torture, nor any other form of coercion</em>, may be inflicted on prisoners of war to secure from them information of any kind whatever. Prisoners of war who refuse to answer may not be threatened, insulted, or exposed to any unpleasant or disadvantageous treatment of any kind."},
+    {type:"prov", cite:"GC IV, Art. 31", note:"Prohibition of coercion",
+     text:"No physical or moral coercion shall be exercised against protected persons, in particular to obtain information from them <em>or from third parties</em>."},
+    {type:"prov", cite:"GC III, Art. 99 ¶2", note:"Essential safeguards",
+     text:"No moral or physical coercion may be exerted on a prisoner of war in order to induce him to admit himself guilty of the act of which he is accused."},
+    {type:"translate", h:"For the AI deployer", ps:[
+      "Three system classes sit directly under this prohibition: <strong>compelled biometrics</strong> (iris, gait, face capture a person cannot refuse), <strong>affect and deception inference</strong> (deriving from a person what they have declined to state), and <strong>network inference</strong> — building a picture of one person by pressuring another.",
+      "Art. 31's reach to third parties is the provision most often missed. A graph model that infers relationships, locations or affiliations from coerced or pressured inputs is extracting information from third parties by proxy.",
+      "There is no legitimate-interest balancing here and no operational-necessity override. In a control framework this is a hard constraint: a design that requires it fails, it is not risk-scored."
+    ]}
+  ],
+  quiz:[
+    {stem:"A prisoner of war refuses to answer a question beyond the Art. 17 minimum. What does the Convention permit?",
+     opts:["Withdrawal of privileges until they cooperate","Nothing adverse — they may not be threatened, insulted or disadvantaged in any way","Extended questioning by a different interrogator","Recording the refusal as evidence of hostile intent"],
+     a:1, why:"Art. 17 ¶4 closes the door completely: no threats, no insults, no unpleasant or disadvantageous treatment of any kind."},
+    {stem:"GC IV Art. 31 is unusual because it protects information about which people?",
+     opts:["Only the protected person being questioned","The protected person and any third parties","Only nationals of the occupying power","Only children and the seriously ill"],
+     a:1, why:"The article expressly forbids coercion to obtain information 'from them or from third parties' — the protection follows the information, not only the person in the room."},
+    {stem:"Which of these can be resolved by risk-scoring and mitigation rather than outright prohibition?",
+     opts:["An emotion-recognition tool used to flag detainees who are 'withholding'","A latency target for transmitting hospital admissions to the Information Bureau","Compelled facial capture of detainees who have declined","Pressuring a family member for information about a detainee"],
+     a:1, why:"Latency is a best-efforts obligation and can be traded off against real constraints. The other three engage the coercion prohibition, which has no exception clause and cannot be mitigated into compliance."}
+  ]
+},
+{
+  id:"expose", tabLabel:"Exposure",
+  kicker:"Principle 03",
+  title:"Protection from exposure and public curiosity",
+  standfirst:"Lawfully held data can still be unlawfully shown. The Conventions protect people from being displayed — and they build a harm test into disclosure that overrides the default toward completeness.",
+  blocks:[
+    {type:"prov", cite:"GC III, Art. 13 ¶2", note:"Humane treatment",
+     text:"Prisoners of war must at all times be protected, particularly against acts of violence or intimidation and against <em>insults and public curiosity</em>."},
+    {type:"prov", cite:"GC IV, Art. 27", note:"Treatment: general observations",
+     text:"Protected persons are entitled, in all circumstances, to respect for their persons, their honour, their family rights … and shall at all times be humanely treated, and shall be protected especially against all acts of violence or threats thereof and against <em>insults and public curiosity</em>."},
+    {type:"prov", cite:"GC IV, Art. 137 ¶2", note:"Transmission of information",
+     text:"Information Bureaux shall transmit information concerning a protected person <em>unless its transmission might be detrimental to the person concerned or to his or her relatives</em>. Even in such a case, the information may not be withheld from the Central Agency …"},
+    {type:"translate", h:"For the AI deployer", ps:[
+      "'Public curiosity' is the clearest treaty hook for restricting AI-generated imagery of identifiable detainees, capability-demonstration screenshots, open publication of enriched OSINT profiles, and screen-shareable operational dashboards.",
+      "Art. 137 ¶2 gives you a genuinely useful disclosure architecture: a <strong>harm-based test</strong> on outbound sharing, paired with a <strong>non-suppressible channel</strong> to the neutral custodian. Protecting the individual never means the record disappears — it means it is routed differently.",
+      "Design consequence: build the redaction and routing logic at the boundary of the system, not into the record itself. Withholding from one recipient must not degrade the underlying data held for the protective purpose."
+    ]}
+  ],
+  quiz:[
+    {stem:"Which phrase in GC III Art. 13 and GC IV Art. 27 most directly restricts publishing identifiable imagery of detainees?",
+     opts:["Respect for family rights","Protection against insults and public curiosity","The prohibition on reprisals","The duty of humane treatment"],
+     a:1, why:"'Insults and public curiosity' is the specific protection against display and exposure, distinct from the general humane-treatment duty."},
+    {stem:"Under GC IV Art. 137 ¶2, transmission would be detrimental to a protected person's relatives. What follows?",
+     opts:["The information is deleted from the record","Transmission is withheld, but the information may still not be withheld from the Central Agency","Transmission proceeds, since completeness of the record prevails","The decision passes to the Occupying Power"],
+     a:1, why:"The harm test suppresses the outbound transmission, not the record. The Central Agency channel remains open precisely so protection does not become erasure."},
+    {stem:"What does Art. 137 ¶2 imply about where disclosure controls belong in a system architecture?",
+     opts:["In the ingestion layer, filtering data at collection","At the disclosure boundary, so routing can differ by recipient while the record stays intact","In the retention schedule, through shorter deletion windows","In the access-logging layer only"],
+     a:1, why:"The provision differentiates by recipient — withheld from one, mandatory to another. That is boundary-layer logic, and it requires the underlying record to remain whole."}
+  ]
+},
+{
+  id:"prov", tabLabel:"Provenance",
+  kicker:"Principle 04",
+  title:"Accuracy, authentication and provenance",
+  standfirst:"A record that no one is accountable for is not a record. The Conventions require that communications carry a mark of authorship — a requirement that becomes sharper, not softer, when the drafting is automated.",
+  blocks:[
+    {type:"prov", cite:"GC I, Art. 16", note:"Recording and forwarding of information",
+     text:"Parties to the conflict shall record as soon as possible, in respect of each wounded, sick or dead person of the adverse Party falling into their hands, <em>any particulars which may assist in his identification</em> … designation of the Power on which he depends, serial number, surname, first names, date of birth, and the date and place of capture or death."},
+    {type:"prov", cite:"GC III, Art. 122 ¶8 · GC IV, Art. 137 ¶4", note:"National Bureaux",
+     text:"All written communications made by the Bureau shall be <em>authenticated by a signature or a seal</em>."},
+    {type:"prov", cite:"GC III, Arts. 96 &amp; 105", note:"Judicial and disciplinary record",
+     text:"A record of disciplinary punishments shall be maintained by the camp commander … The prisoner of war shall be advised, in good time before the opening of the trial, of the <em>particulars of the charge or charges</em> on which he is to be arraigned."},
+    {type:"translate", h:"For the AI deployer", ps:[
+      "The signature-or-seal requirement is a <strong>non-repudiation</strong> control written in 1949. Its modern equivalents are cryptographic signing, tamper-evident logs and named human attestation of the outbound record.",
+      "Where a model drafts, summarises, matches or de-duplicates a protected person's record, the authentication requirement does not transfer to the model. An accountable human signs, which means that human must be able to see and correct what the system produced.",
+      "Capture provenance as a first-class field: which system version produced this, on what inputs, reviewed by whom, at what time. Without it, an identification error cannot be traced, and an erroneous identification in this domain is not a data-quality defect — it is a person unaccounted for."
+    ]}
+  ],
+  quiz:[
+    {stem:"How must written communications from a national Information Bureau be authenticated?",
+     opts:["By registration with the Protecting Power","By a signature or a seal","By countersignature of the Central Agency","By entry in the camp register"],
+     a:1, why:"GC III Art. 122 ¶8 and GC IV Art. 137 ¶4 both require a signature or seal — a mark of accountable authorship on every outbound communication."},
+    {stem:"Which modern control is the closest functional equivalent of the signature-or-seal requirement?",
+     opts:["Encryption of data in transit","Non-repudiation through signed, tamper-evident records","Role-based access control","Data residency restriction"],
+     a:1, why:"The purpose of the seal is not confidentiality or access control. It attributes the communication to an accountable author and makes alteration detectable — non-repudiation."},
+    {stem:"A model automatically drafts and matches casualty records. Where does the authentication obligation sit?",
+     opts:["With the model, whose output is logged automatically","With the accountable human who reviews and signs the record","With the vendor supplying the model","It is suspended where drafting is automated"],
+     a:1, why:"The obligation attaches to the Bureau's communication and its author. Automation may draft, but a human must be able to inspect, correct and attest — otherwise no one is accountable for the record."}
+  ]
+},
+{
+  id:"time", tabLabel:"Timeliness",
+  kicker:"Principle 05",
+  title:"Timeliness and continuity of the record",
+  standfirst:"The Conventions treat a person's record as a living object. Enumerated events must be pushed to the Bureau as they occur, and the duty does not end at death or repatriation.",
+  blocks:[
+    {type:"prov", cite:"GC III, Art. 122 ¶5", note:"National Bureaux",
+     text:"The Information Bureau shall receive from the various departments concerned information regarding <em>transfers, releases, repatriations, escapes, admissions to hospital, and deaths</em>, and shall transmit such information …"},
+    {type:"prov", cite:"GC IV, Art. 136 ¶2 · GC III, Art. 122 ¶6", note:"State of health",
+     text:"… all changes pertaining to these protected persons, as, for example, transfers, releases, repatriations, escapes, admittances to hospitals, <em>births and deaths</em>. Information regarding the state of health of those who are seriously ill or seriously wounded shall be supplied <em>regularly, every week if possible</em>."},
+    {type:"prov", cite:"GC III, Art. 120", note:"Graves Registration Service",
+     text:"In order that graves may always be found, all particulars of burials and graves shall be registered … Lists of graves and particulars of the prisoners of war interred shall be transmitted to the Power on which they depended, and responsibility for records <em>of any subsequent moves of the bodies</em> shall rest on the Power controlling the territory."},
+    {type:"translate", h:"For the AI deployer", ps:[
+      "This is an <strong>event-driven</strong> obligation, not a reporting cycle. Six or seven named events trigger an immediate push. A nightly batch export satisfies the letter of nothing here.",
+      "Latency is therefore a compliance property of the system, not a performance metric. Instrument it, set thresholds against the named events, and alarm on breach the way you would on a security control.",
+      "Art. 120's duty to record subsequent moves of bodies is the clearest statement that the record has no terminal state. Any retention or archival policy that closes a record on death or release conflicts with the obligation to keep it findable and current."
+    ]}
+  ],
+  quiz:[
+    {stem:"How often must information on the state of health of the seriously ill or wounded be supplied?",
+     opts:["On request from the Protecting Power","Regularly, every week if possible","Monthly","Only on admission and discharge"],
+     a:1, why:"GC III Art. 122 ¶6 and GC IV Art. 138 both set a weekly rhythm where possible — one of the few explicit frequencies in the Conventions."},
+    {stem:"Which of these is NOT among the events that must be notified to the Information Bureau?",
+     opts:["Escape","Admission to hospital","Change of religious observance","Transfer"],
+     a:2, why:"The enumerated events are transfers, releases, repatriations, escapes, hospital admissions, and deaths — and under GC IV, births. Religious observance is protected but not a notification trigger."},
+    {stem:"What does GC III Art. 120 establish about a record after the person has died?",
+     opts:["It is closed and archived once burial is registered","It remains live — subsequent moves of the body must also be recorded","It transfers in full to the Central Agency and is deleted locally","It is retained for a fixed period, then destroyed"],
+     a:1, why:"Responsibility extends to records of any subsequent moves of the bodies. The record has no terminal state, which constrains any automated archival or deletion policy."}
+  ]
+},
+{
+  id:"interop", tabLabel:"Interoperability",
+  kicker:"Principle 06",
+  title:"Interoperability and neutral custodianship",
+  standfirst:"The Conventions solve a problem AI governance keeps rediscovering: how hostile parties exchange structured data about people. The answer is a pre-agreed format and a neutral custodian, both established before they are needed.",
+  blocks:[
+    {type:"prov", cite:"GC I, Art. 40 · GC II, Art. 42", note:"Identity card",
+     text:"The identity card shall be <em>uniform throughout the same armed forces</em> and, as far as possible, of similar type in the armed forces of the High Contracting Parties … The Parties to the conflict shall inform each other, <em>at the outbreak of hostilities</em>, of the model they are using."},
+    {type:"prov", cite:"GC III, Art. 123 · GC IV, Art. 140", note:"Central Agency",
+     text:"A Central Information Agency … shall be created <em>in a neutral country</em>. The International Committee of the Red Cross shall, if it deems necessary, propose to the Powers concerned the organization of such an Agency … to collect all the information it may obtain <em>through official or private channels</em> and to transmit it as rapidly as possible."},
+    {type:"prov", cite:"GC III, Art. 124 · GC IV, Art. 141", note:"Exemption from charges",
+     text:"The national Information Bureaux and the Central Information Agency shall enjoy <em>free postage</em> for all mail, likewise the exemptions provided … and, so far as possible, exemption from telegraphic charges or, at least, greatly reduced rates."},
+    {type:"translate", h:"For the AI deployer", ps:[
+      "Agree the schema before the conflict. The identity-card provisions are a treaty-level <strong>interoperability standard</strong> — uniform format, models exchanged at the outbreak of hostilities. The equivalent for a data system is a published schema and exchange format, versioned and shared with counterparties in advance.",
+      "The Central Agency is a working precedent for a <strong>neutral custodian</strong> — an entity outside both parties that can receive, hold and forward. Where mutual trust is absent, that structure does the work that no contractual assurance between belligerents could.",
+      "Art. 124 is the provision people skip. It exists so that cost or infrastructure never becomes the reason information does not move. Its modern reading: the transmission path must be funded and resourced as part of the obligation, not treated as someone else's dependency."
+    ]}
+  ],
+  quiz:[
+    {stem:"Where must the Central Information Agency be established?",
+     opts:["In the territory of the Detaining Power","In a neutral country","At the seat of the Protecting Power","In the territory of the Power of origin"],
+     a:1, why:"GC III Art. 123 and GC IV Art. 140 both require a neutral country — the neutrality of the custodian is structural, not incidental."},
+    {stem:"When must parties inform each other of the identity-card model they are using?",
+     opts:["At the outbreak of hostilities","On the first transfer of prisoners","When requested by the Central Agency","Within thirty days of any change"],
+     a:0, why:"GC I Art. 40 requires exchange at the outbreak of hostilities — the interoperability standard is settled before the data needs to move."},
+    {stem:"What is the governance point of the free-postage provisions in Arts. 124 and 141?",
+     opts:["To reduce the administrative burden on neutral states","To ensure cost or infrastructure never obstructs the flow of protective information","To privilege ICRC communications over other traffic","To standardise the format of communications"],
+     a:1, why:"The provision removes a foreseeable practical obstacle. Read across: the transmission channel must be resourced as part of the obligation, not left as an unowned dependency."}
+  ]
+},
+{
+  id:"vuln", tabLabel:"Vulnerability",
+  kicker:"Principle 07",
+  title:"Identifying the vulnerable — and the limit on doing so",
+  standfirst:"The strongest identification duties in the Conventions attach to children and to those who cannot state who they are. They are also where the text is most explicit that necessity does not override protection.",
+  blocks:[
+    {type:"prov", cite:"GC IV, Art. 50", note:"Children",
+     text:"The Occupying Power shall take all necessary steps to facilitate the identification of children and the registration of their parentage. It <em>may not, in any case, change their personal status</em> … A special section of the Bureau … shall be responsible for taking all necessary steps to identify children whose identity is in doubt. Particulars of their parents or other near relatives should always be recorded if available."},
+    {type:"prov", cite:"GC IV, Arts. 25 &amp; 26", note:"Family news · Dispersed families",
+     text:"All persons in the territory of a Party to the conflict … shall be enabled to give news of a strictly personal nature to members of their families … Each Party shall <em>facilitate enquiries made by members of families dispersed owing to the war</em>, with the object of renewing contact with one another and of meeting, if possible."},
+    {type:"prov", cite:"GC III, Art. 17 ¶5", note:"Questioning of prisoners",
+     text:"Prisoners of war who, owing to their physical or mental condition, are unable to state their identity, shall be handed over to the medical service. The identity of such prisoners shall be established <em>by all possible means, subject to the provisions of the preceding paragraph</em>."},
+    {type:"translate", h:"For the AI deployer", ps:[
+      "Read the last eight words of Art. 17 ¶5 carefully. 'All possible means' is immediately subordinated to the coercion prohibition in the preceding paragraph. <strong>Necessity is expressly ranked below protection</strong> — and this is the case where necessity is at its most sympathetic.",
+      "That ordering is the single most transferable drafting move in this module. Where an AI system pursues a protective goal by means that engage a prohibition, the goal yields. Build the constraint check upstream of the optimisation, not as a review after it.",
+      "Children's identification carries the heaviest duty and the tightest limit in the same article: identify actively, record parentage, and never alter personal status. For any system that resolves, merges or assigns identity records, immutability of legal status is a hard requirement — automated record-merging can quietly breach it."
+    ]}
+  ],
+  quiz:[
+    {stem:"Under GC IV Art. 50, what may an Occupying Power never do in relation to children?",
+     opts:["Record their parentage","Change their personal status","Move them to institutions in occupied territory","Provide education in their own language"],
+     a:1, why:"Art. 50 requires active identification and registration of parentage, but forbids any change of personal status — an absolute limit sitting beside a positive duty."},
+    {stem:"GC III Art. 17 ¶5 permits identity to be established 'by all possible means'. What qualifies that phrase?",
+     opts:["The consent of the Protecting Power","The prohibition on coercion in the preceding paragraph","The availability of medical personnel","The urgency of the operational situation"],
+     a:1, why:"The words 'subject to the provisions of the preceding paragraph' subordinate the identification effort to the coercion prohibition. Necessity does not unlock a prohibited means."},
+    {stem:"An identity-resolution model automatically merges duplicate records for children of uncertain identity. What is the principal risk under Art. 50?",
+     opts:["Excessive data retention","An automated merge may alter a child's recorded personal status or parentage","Delay in notifying the Central Agency","Failure to authenticate the record"],
+     a:1, why:"Art. 50 protects personal status absolutely and requires parentage to be recorded where available. A merge that overwrites either does exactly what the Occupying Power is forbidden to do."}
+  ]
+},
+{
+  id:"assess", tabLabel:"Assessment", isFinal:true,
+  kicker:"Closing assessment",
+  title:"Mixed assessment",
+  standfirst:"Eight questions drawing across all seven principles. Your section results are carried into the scorecard below.",
+  blocks:[],
+  quiz:[
+    {stem:"Which pairing correctly matches a provision to the AI-governance control it most closely anticipates?",
+     opts:["GC III Art. 13 → data residency","GC III Art. 122 ¶8 → non-repudiation and signed audit trail","GC IV Art. 140 → data minimisation","GC I Art. 40 → incident response"],
+     a:1, why:"Authentication by signature or seal is a non-repudiation control. Art. 13 concerns exposure, Art. 140 the neutral custodian, Art. 40 interoperability."},
+    {stem:"A deployer argues that an operational emergency justifies compelled biometric capture from detainees who have refused. Is that argument available under the Conventions?",
+     opts:["Yes, where proportionate to the military necessity","Yes, if authorised by the Detaining Power's own law","No — the coercion prohibition carries no exception clause","No, unless the Protecting Power consents"],
+     a:2, why:"GC III Art. 17 ¶4 and GC IV Art. 31 are drafted absolutely. Neither necessity, domestic law nor third-party consent creates an exception."},
+    {stem:"Which structural feature distinguishes the prohibitions from the obligations in these Conventions?",
+     opts:["Prohibitions apply only in occupied territory","Obligations carry qualifiers such as 'as soon as possible'; prohibitions carry none","Prohibitions bind only the Detaining Power","Obligations are enforced by the Central Agency"],
+     a:1, why:"The qualifying language is the tell. Obligations bend under operational reality; prohibitions do not, which is why they belong in a different constraint class."},
+    {stem:"A dashboard displays live identifiable imagery of detainees to a broad internal audience. Which provision is engaged first?",
+     opts:["GC IV Art. 138 — particulars required","GC III Art. 13 — protection against insults and public curiosity","GC III Art. 124 — exemption from charges","GC I Art. 16 — recording of information"],
+     a:1, why:"Holding the data may be lawful; displaying it is a separate question, governed by the protection against public curiosity."},
+    {stem:"What does GC IV Art. 137 ¶2 tell you about the relationship between protecting an individual and preserving the record?",
+     opts:["Protection requires deletion of the harmful information","Protection changes who receives the information, not whether it is held","Protection suspends the record until the conflict ends","Protection transfers the record to the Occupying Power"],
+     a:1, why:"Transmission may be withheld from a Power, but never from the Central Agency. Routing changes; the record persists."},
+    {stem:"Which of these is an event-driven notification duty rather than a periodic one?",
+     opts:["Health reporting on the seriously ill","Notification of a transfer, escape or death","The annual exchange of identity-card models","Registration of the Convention with the United Nations"],
+     a:1, why:"Transfers, releases, repatriations, escapes, hospital admissions and deaths trigger immediate notification. Health reporting is the periodic duty, weekly where possible."},
+    {stem:"Why is the neutral location of the Central Agency structurally important for an AI-era data-sharing design?",
+     opts:["It reduces the cost of transmission","It places the custodian outside both parties, so exchange does not depend on trust between belligerents","It guarantees the accuracy of the data held","It allows the ICRC to override national Bureaux"],
+     a:1, why:"Neutrality does the work that no agreement between hostile parties could. It is the design answer to custody where mutual trust is absent."},
+    {stem:"Across the module, what is the single clearest constraint on the phrase 'all possible means'?",
+     opts:["The resources available to the Detaining Power","The prohibitions, which are ranked above the protective objective","The consent of the person concerned","The instructions of the Central Agency"],
+     a:1, why:"GC III Art. 17 ¶5 makes the ranking explicit even in the most sympathetic case. A protective goal never authorises a prohibited means."}
+  ]
+}
+];
+
+/* ============================================================
+   Render
+   ============================================================ */
+const tabsEl=document.getElementById('tabs');
+const panelsEl=document.getElementById('panels');
+const state={}; // qid -> {correct:bool}
+let TOTAL=0;
+LESSON.forEach(s=>TOTAL+=s.quiz.length);
+
+const esc=s=>s;
+
+function provHTML(b){
+  return `<div class="prov">
+    <div class="prov__margin"><span class="prov__cite">${b.cite}</span><span class="prov__note">${b.note}</span></div>
+    <div class="prov__body"><p class="prov__text">${b.text}</p></div>
+  </div>`;
+}
+function blockHTML(b){
+  if(b.type==='prov') return provHTML(b);
+  if(b.type==='translate') return `<div class="translate"><h4>${b.h}</h4>${b.ps.map(p=>`<p>${p}</p>`).join('')}</div>`;
+  if(b.type==='note') return `<div class="note"><h4>${b.h}</h4><p>${b.p}</p></div>`;
+  return b.html||'';
+}
+
+LESSON.forEach((sec,si)=>{
+  const t=document.createElement('button');
+  t.className='tab'; t.type='button'; t.role='tab';
+  t.id='tab-'+sec.id; t.setAttribute('aria-controls','pan-'+sec.id);
+  t.setAttribute('aria-selected', si===0?'true':'false');
+  t.innerHTML=`<span class="num">${String(si).padStart(2,'0')}</span>${sec.tabLabel}<span class="done" id="dot-${sec.id}"></span>`;
+  t.addEventListener('click',()=>select(si));
+  tabsEl.appendChild(t);
+
+  const p=document.createElement('section');
+  p.className='panel'+(si===0?' on':''); p.id='pan-'+sec.id;
+  p.setAttribute('role','tabpanel'); p.setAttribute('aria-labelledby','tab-'+sec.id);
+
+  let html=`<p class="kicker">${sec.kicker}</p><h2>${sec.title}</h2><p class="standfirst">${sec.standfirst}</p>`;
+  html+=sec.blocks.map(blockHTML).join('');
+
+  html+=`<div class="quiz"><p class="quiz__head">${sec.isFinal?'Assessment':'Check your understanding'} · <b>${sec.quiz.length} questions</b></p>`;
+  sec.quiz.forEach((q,qi)=>{
+    const qid=sec.id+'-'+qi;
+    html+=`<div class="q"><p class="q__stem"><span class="qn">Q${qi+1}</span>${q.stem}</p><div class="opts">`;
+    q.opts.forEach((o,oi)=>{
+      html+=`<button type="button" class="opt" data-q="${qid}" data-i="${oi}" data-a="${q.a}"><span class="mark">${'ABCD'[oi]}</span>${o}</button>`;
+    });
+    html+=`</div><div class="why" id="why-${qid}"><b></b><span>${q.why}</span></div></div>`;
+  });
+  html+=`</div>`;
+
+  if(sec.isFinal){
+    html+=`<h3>Your scorecard</h3>
+      <div class="score">
+        <p class="score__big" id="sBig">0%</p>
+        <p class="score__lbl">Overall · <span id="sRaw">0 of ${TOTAL}</span> correct</p>
+        <table><thead><tr><th>Section</th><th>Answered</th><th>Correct</th></tr></thead><tbody id="sBody"></tbody></table>
+        <button class="btn" type="button" id="resetBtn">Start over</button>
+      </div>`;
+  }
+  p.innerHTML=html;
+  panelsEl.appendChild(p);
+});
+
+function select(i){
+  LESSON.forEach((s,j)=>{
+    document.getElementById('tab-'+s.id).setAttribute('aria-selected', i===j?'true':'false');
+    document.getElementById('pan-'+s.id).classList.toggle('on', i===j);
+  });
+  window.scrollTo({top:0,behavior:'instant' in window ? 'auto':'auto'});
+}
+
+/* answering */
+panelsEl.addEventListener('click',e=>{
+  const btn=e.target.closest('.opt');
+  if(!btn||btn.disabled) return;
+  const qid=btn.dataset.q, ans=+btn.dataset.a, pick=+btn.dataset.i;
+  const group=btn.parentElement.querySelectorAll('.opt');
+  group.forEach(b=>{
+    b.disabled=true;
+    const i=+b.dataset.i;
+    if(i===ans) b.classList.add('right');
+    else if(i===pick) b.classList.add('wrong');
+    else b.classList.add('muted');
+  });
+  const why=document.getElementById('why-'+qid);
+  const ok=pick===ans;
+  why.classList.add('show', ok?'ok':'no');
+  why.querySelector('b').textContent = ok? 'Correct' : 'Not quite';
+  state[qid]={correct:ok};
+  refresh();
+});
+
+function refresh(){
+  const ans=Object.keys(state).length;
+  const cor=Object.values(state).filter(s=>s.correct).length;
+  document.getElementById('tAns').textContent=ans;
+  document.getElementById('tCor').textContent=cor;
+  document.getElementById('tBar').style.width=(ans/TOTAL*100)+'%';
+
+  const rows=[];
+  LESSON.forEach(sec=>{
+    let a=0,c=0;
+    sec.quiz.forEach((q,qi)=>{const s=state[sec.id+'-'+qi]; if(s){a++; if(s.correct)c++;}});
+    document.getElementById('dot-'+sec.id).textContent = (a===sec.quiz.length && sec.quiz.length) ? '✓' : '';
+    rows.push(`<tr><td>${sec.tabLabel}</td><td class="n">${a} / ${sec.quiz.length}</td><td class="n">${c}</td></tr>`);
+  });
+  const body=document.getElementById('sBody');
+  if(body) body.innerHTML=rows.join('');
+  const big=document.getElementById('sBig');
+  if(big){
+    big.textContent = ans? Math.round(cor/ans*100)+'%' : '0%';
+    document.getElementById('sRaw').textContent = cor+' of '+TOTAL;
+  }
+}
+
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  for(const k in state) delete state[k];
+  panelsEl.querySelectorAll('.opt').forEach(b=>{b.disabled=false;b.classList.remove('right','wrong','muted');});
+  panelsEl.querySelectorAll('.why').forEach(w=>w.classList.remove('show','ok','no'));
+  refresh(); select(0);
+});
+
+/* keyboard nav across tabs */
+tabsEl.addEventListener('keydown',e=>{
+  if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft') return;
+  const btns=[...tabsEl.querySelectorAll('.tab')];
+  const cur=btns.findIndex(b=>b.getAttribute('aria-selected')==='true');
+  const next=(cur+(e.key==='ArrowRight'?1:-1)+btns.length)%btns.length;
+  select(next); btns[next].focus(); e.preventDefault();
+});
+
+refresh();
+</script>
+</body>
+</html>
