@@ -343,4 +343,4 @@ The module holds no storage and emits no telemetry, deliberately. For a session 
 
 ---
 
-*HCXAIResearch · Human-at-centre AI governance · `HCXAI-LA-001-M` v1.0*
+*HCXAIResearch · Human Explainable AI governance · `HCXAI-LA-001-M` v1.0*
