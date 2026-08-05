@@ -1,3 +1,5 @@
+# Information Provisions of the Geneva Conventions
+
 | Field | Value |
 |---|---|
 | Title | Information Provisions of the Geneva Conventions (Learning Aid) |
@@ -9,8 +11,6 @@
 | Standards Reference | Geneva Conventions of 12 August 1949 (GC I–IV); ISO/IEC 42001:2023; ISO/IEC 42005:2025; NIST AI RMF 1.0; OECD AI Principles |
 | License | See LICENSE |
 | Project Link | https://hcxairesearch.github.io/genevaconai/ |
-
-# Information Provisions of the Geneva Conventions
 
 A single-file, browser-based teaching module that draws seven data-governance principles out of the text of the four Geneva Conventions of 12 August 1949 and translates each one into terms an organisation **deploying** AI in or around armed conflict can act on.
 
@@ -138,4 +138,4 @@ Read these before putting the module in front of an external audience.
 
 ---
 
-*HCXAIResearch · Human Centered Explainable AI (Governance) · `HCXAI-LA-001` v1.0*
+*HCXAIResearch · Human Centered Explainable AI (Governance) · `HCXAI-prj06-001` v1.0*
