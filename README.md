@@ -1,18 +1,13 @@
----
-Title: "Information Provisions of the Geneva Conventions — Learning Aid"
-Document Reference: HCXAI-LA-001
-Version: 1.0
-Status: Released
-Owner: HCXAIResearch
-Audience: AI governance practitioners, compliance leads, training facilitators
-Standards Reference:
-  - Geneva Conventions of 12 August 1949 (GC I–IV)
-  - ISO/IEC 42001:2023
-  - ISO/IEC 42005:2025
-  - NIST AI RMF 1.0
-  - OECD AI Principles
-License: See LICENSE
----
+| Field | Value |
+|---|---|
+| Title | Information Provisions of the Geneva Conventions — Learning Aid |
+| Document Reference | HCXAI-LA-001 |
+| Version | 1.0 |
+| Status | Released |
+| Owner | HCXAIResearch |
+| Audience | AI governance practitioners, compliance leads, training facilitators |
+| Standards Reference | Geneva Conventions of 12 August 1949 (GC I–IV); ISO/IEC 42001:2023; ISO/IEC 42005:2025; NIST AI RMF 1.0; OECD AI Principles |
+| License | See LICENSE |
 
 # Information Provisions of the Geneva Conventions
 
